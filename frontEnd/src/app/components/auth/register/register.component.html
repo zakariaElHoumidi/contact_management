@@ -1,9 +1,9 @@
-<div class="max-w-xl px-4 w-full">
+<div class="max-w-lg px-4 w-full">
   <form
     [formGroup]="user"
     (submit)="submitForm()"
     [ngClass]="[
-      'p-8 rounded-lg space-y-4 md:space-y-6',
+      'p-8 rounded-lg space-y-4 md:space-y-6 border',
       useClass('bg', themeColors.card),
       useClass('text', themeColors.text),
       useClass('border', themeColors.border)
@@ -37,11 +37,14 @@
     </div>
 
     <div class="w-full flex justify-center mx-auto gap-4">
-      @for (step of [1, 2, 3]; track $index) {
+      @for (step of [1, 2]; track $index) {
       <div
         [ngClass]="[
           'w-8 h-1 md:h-2 rounded-lg',
-          useClass('bg', themeColors.foreground)
+          useClass('bg', themeColors.foreground),
+          currentStep === $index + 1
+            ? useClass('bg', themeColors.foreground)
+            : useClass('bg', themeColors.text_muted)
         ]"
       ></div>
       }
@@ -89,7 +92,11 @@
         <span class="capitalize text-red-500 text-xs md:text-sm"
           >First Name should be at least 55</span
         >
-        } }
+        } }@if(errors?.['first_name']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['first_name']
+        }}</span>
+        }
       </div>
 
       <!-- Last Name -->
@@ -132,7 +139,11 @@
         <span class="capitalize text-red-500 text-xs md:text-sm"
           >Last Name should be at least 55</span
         >
-        } }
+        } }@if(errors?.['last_name']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['last_name']
+        }}</span>
+        }
       </div>
 
       <!-- Full Name -->
@@ -170,6 +181,7 @@
           name</span
         >
       </div>
+
       } @else if (currentStep === 2) {
       <!-- Email -->
       <div class="space-y-3 md:space-y-6">
@@ -206,7 +218,11 @@
         <span class="capitalize text-red-500 text-xs md:text-sm"
           >Address Email invalid</span
         >
-        } }
+        } }@if(errors?.['email']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['email']
+        }}</span>
+        }
       </div>
 
       <!-- Password -->
@@ -225,7 +241,7 @@
         <div class="relative">
           <input
             id="password"
-            [type]="show_passwords.password ? 'text' : 'password'"
+            [type]="show_passwords['password'] ? 'text' : 'password'"
             formControlName="password"
             [ngClass]="[
               'px-3 py-2 w-full',
@@ -249,7 +265,9 @@
             >
               <i
                 class="fa-solid"
-                [ngClass]="show_passwords.password ? 'fa-eye-slash' : 'fa-eye'"
+                [ngClass]="
+                  show_passwords['password'] ? 'fa-eye-slash' : 'fa-eye'
+                "
               ></i>
             </button>
           </div>
@@ -264,10 +282,14 @@
         <span class="capitalize text-red-500 text-xs md:text-sm"
           >Password should be at least 8</span
         >
-        } }
+        } }@if(errors?.['password']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['password']
+        }}</span>
+        }
       </div>
 
-      <!-- Password -->
+      <!-- Confirm Password -->
       <div class="space-y-3 md:space-y-6">
         <label
           htmlFor="confirm_password"
@@ -283,7 +305,7 @@
         <div class="relative">
           <input
             id="confirm_password"
-            [type]="show_passwords.confirm_password ? 'text' : 'password'"
+            [type]="show_passwords['confirm_password'] ? 'text' : 'password'"
             formControlName="confirm_password"
             [ngClass]="[
               'px-3 py-2 w-full',
@@ -308,7 +330,7 @@
               <i
                 class="fa-solid"
                 [ngClass]="
-                  show_passwords.confirm_password ? 'fa-eye-slash' : 'fa-eye'
+                  show_passwords['confirm_password'] ? 'fa-eye-slash' : 'fa-eye'
                 "
               ></i>
             </button>
@@ -357,12 +379,7 @@
         [disabled]="!validateStep()"
       >
         @if(loading) {
-        <div
-          [ngClass]="[
-            'animate-spin rounded-full h-4 w-4 border-t-2 border-b-2',
-            useClass('border', themeColors.spinner)
-          ]"
-        ></div>
+        <app-spinner></app-spinner>
         }
         <span>{{ currentStep !== steps ? "Next" : "Register" }}</span>
         <i class="fa-solid fa-chevron-right"></i>

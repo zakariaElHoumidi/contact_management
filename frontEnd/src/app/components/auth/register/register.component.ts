@@ -8,12 +8,12 @@ import { routes_paths } from '../../../app.routes_paths';
 import { Router, RouterLink } from '@angular/router';
 import { TClass } from '../../../types/TClass';
 import { AuthService } from '../../../services/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { SpinnerComponent } from "../../../minu-components/spinner/spinner.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -24,17 +24,18 @@ export class RegisterComponent implements OnInit {
   private readonly _authService: AuthService = inject(AuthService);
   private readonly _router: Router = inject(Router);
 
-  isDark: boolean = true;
-  themeColors: IThemeColors = this._themeService.getCurrentThemeColors(this.isDark ? 'dark' : 'light');
 
+  isDark: boolean = true;
   root_auth = routes_paths.auth.root;
   login_path = routes_paths.auth.children.login;
-
   steps: number = 2;
   currentStep: number = 1;
   loading: boolean = false;
+  errors: Record<string, string> | null = null
 
-  show_passwords = {
+  themeColors: IThemeColors = this._themeService.getCurrentThemeColors(this.isDark ? 'dark' : 'light');
+
+  show_passwords: Record<string, boolean> = {
     password: false,
     confirm_password: false
   }
@@ -181,8 +182,9 @@ export class RegisterComponent implements OnInit {
         this._router.navigate([`/${routes_paths.auth.root}/${routes_paths.auth.children.login}`]);
       },
       error: (err) => {
-        this.loading = false;
         console.error(err);
+        this.loading = false;
+        this.errors = err.error;
       }
     })
   }

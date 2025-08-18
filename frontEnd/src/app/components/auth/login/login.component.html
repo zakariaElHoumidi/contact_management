@@ -1,0 +1,202 @@
+<div class="max-w-lg px-4 w-full">
+  <form
+    [formGroup]="user"
+    (submit)="submitForm()"
+    [ngClass]="[
+      'p-8 rounded-lg space-y-4 md:space-y-6 border',
+      useClass('bg', themeColors.card),
+      useClass('text', themeColors.text),
+      useClass('border', themeColors.border)
+    ]"
+    method="POST"
+  >
+    <div class="overflow-hidden text-center space-y-2 md:space-y-4">
+      <h1
+        [ngClass]="[
+          'text-xl md:text-3xl font-bold',
+          useClass('text', themeColors.text)
+        ]"
+      >
+        Welcome back
+      </h1>
+
+      <p
+        [ngClass]="[
+          'text-xs md:text-sm font-semibold',
+          useClass('text', themeColors.text_muted)
+        ]"
+      >
+        Sign in to your account to continue reading and writing
+      </p>
+    </div>
+
+    <div class="fields space-y-4 md:space-y-8">
+      <!-- Email -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="email"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Address Email
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [ngClass]="[
+            'px-3 py-2 w-full',
+            useClass('bg', themeColors.background),
+            useClass('text', themeColors.text),
+            useClass('border', themeColors.border)
+          ]"
+          placeholder="Address Email"
+          required
+        />
+
+        @if(email?.touched && email?.dirty) { @if(email?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Address Email Required</span
+        >
+        } @if(email?.getError('email')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Address Email invalid</span
+        >
+        } } @if(errors?.['email']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['email']
+        }}</span>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="password"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Password
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <div class="relative">
+          <input
+            id="password"
+            [type]="show_password ? 'text' : 'password'"
+            formControlName="password"
+            [ngClass]="[
+              'px-3 py-2 w-full',
+              useClass('bg', themeColors.background),
+              useClass('text', themeColors.text),
+              useClass('border', themeColors.border)
+            ]"
+            placeholder="********"
+            required
+          />
+
+          <div class="absolute right-3 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              (click)="togglePassword()"
+              [ngClass]="[
+                'text-xs md:text-lg p-1 md:p-2 cursor-pointer rounded-lg transition',
+                useClass('text', themeColors.text_muted),
+                useClass('hover:text', themeColors.foreground)
+              ]"
+            >
+              <i
+                class="fa-solid"
+                [ngClass]="show_password ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        @if(password?.touched && password?.dirty) {
+        @if(password?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Password Required</span
+        >
+        } @if(password?.getError('minlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Password should be at least 8</span
+        >
+        } }@if(errors?.['password']) {
+        <span class="capitalize text-red-500 text-xs md:text-sm">{{
+          errors?.['password']
+        }}</span>
+        }
+      </div>
+
+      <div class="flex justify-between items-center text-sm">
+        <label
+          htmlFor="remember_me"
+          [ngClass]="[
+            'text-xs md:text-lg flex cursor-pointer items-center space-x-3 capitalize font-medium',
+            useClass('text', themeColors.text_muted)
+          ]"
+        >
+          <input
+            id="remember_me"
+            type="checkbox"
+            formControlName="remember_me"
+            class="rounded"
+          />
+          <span>Remember me</span>
+        </label>
+
+        <a
+          [ngClass]="[
+            'text-md md:text-lg transition',
+            useClass('text', themeColors.foreground),
+            useClass('hover:text', themeColors.foreground_hover)
+          ]"
+          href="/auth/forget-password"
+          >Forgot password?</a
+        >
+      </div>
+    </div>
+
+    <div class="grid">
+      <button
+        [ngClass]="[
+          'flex items-center justify-center space-x-3 cursor-pointer px-4 py-1 md:py-2 rounded-lg disabled:pointer-events-none disabled:opacity-50 transition',
+          useClass('bg', themeColors.foreground),
+          useClass('hover:bg', themeColors.foreground_hover)
+        ]"
+      >
+        @if(loading) {
+        <app-spinner></app-spinner>
+        }
+        <span>Login</span>
+      </button>
+    </div>
+
+    <div class="overflow-hidden text-center">
+      <h1
+        [ngClass]="[
+          'text-sm md:text-lg font-medium space-x-2',
+          useClass('text', themeColors.text_muted)
+        ]"
+      >
+        <span>Don't have an account? </span>
+        <a
+          [routerLink]="['/' + root_auth + '/' + register_path]"
+          [ngClass]="[
+            useClass('text', themeColors.foreground),
+            useClass('hover:text', themeColors.foreground_hover)
+          ]"
+        >
+          Create account
+        </a>
+      </h1>
+    </div>
+  </form>
+</div>

@@ -11,7 +11,7 @@ export const routes_paths = {
   user: {
     root: "user",
     children: {
-      dashboard: 'dashboard',
+      home: '',
       profile: 'profile',
     }
   },
