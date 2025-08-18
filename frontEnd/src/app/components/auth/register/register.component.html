@@ -1,1 +1,392 @@
-<p>register works!</p>
+<div class="max-w-xl px-4 w-full">
+  <form
+    [formGroup]="user"
+    (submit)="submitForm()"
+    [ngClass]="[
+      'p-8 rounded-lg space-y-4 md:space-y-6',
+      useClass('bg', themeColors.card),
+      useClass('text', themeColors.text),
+      useClass('border', themeColors.border)
+    ]"
+    method="POST"
+  >
+    @if (false) {
+    <div class="p-2 rounded-lg capitalize text-center bg-red-400 text-white">
+      <h1 class="text-lg">errors?.unknown</h1>
+    </div>
+    }
+
+    <div class="overflow-hidden text-center space-y-2 md:space-y-4">
+      <h1
+        [ngClass]="[
+          'text-xl md:text-3xl font-bold',
+          useClass('text', themeColors.text)
+        ]"
+      >
+        Create account
+      </h1>
+
+      <p
+        [ngClass]="[
+          'text-xs md:text-sm font-semibold',
+          useClass('text', themeColors.text_muted)
+        ]"
+      >
+        Sign up to start managing your contacts
+      </p>
+    </div>
+
+    <div class="w-full flex justify-center mx-auto gap-4">
+      @for (step of [1, 2, 3]; track $index) {
+      <div
+        [ngClass]="[
+          'w-8 h-1 md:h-2 rounded-lg',
+          useClass('bg', themeColors.foreground)
+        ]"
+      ></div>
+      }
+    </div>
+
+    <div class="fields space-y-4 md:space-y-8">
+      @if (currentStep === 1) {
+      <!-- First Name -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="first_name"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          First Name
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <input
+          id="first_name"
+          type="text"
+          formControlName="first_name"
+          [ngClass]="[
+            'px-3 py-2 w-full',
+            useClass('bg', themeColors.background),
+            useClass('text', themeColors.text),
+            useClass('border', themeColors.border)
+          ]"
+          placeholder="First Name"
+          required
+        />
+
+        @if(first_name?.touched && first_name?.dirty) {
+        @if(first_name?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >First Name Required</span
+        >
+        } @if(first_name?.getError('minlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >First Name should be at least 3</span
+        >
+        } @if(first_name?.getError('maxlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >First Name should be at least 55</span
+        >
+        } }
+      </div>
+
+      <!-- Last Name -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="last_name"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Last Name
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <input
+          id="last_name"
+          type="text"
+          formControlName="last_name"
+          [ngClass]="[
+            'px-3 py-2 w-full',
+            useClass('bg', themeColors.background),
+            useClass('text', themeColors.text),
+            useClass('border', themeColors.border)
+          ]"
+          placeholder="Last Name"
+          required
+        />
+
+        @if(last_name?.touched && last_name?.dirty) {
+        @if(last_name?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Last Name Required</span
+        >
+        } @if(last_name?.getError('minlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Last Name should be at least 3</span
+        >
+        } @if(last_name?.getError('maxlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Last Name should be at least 55</span
+        >
+        } }
+      </div>
+
+      <!-- Full Name -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="name"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Full Name
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          [disabled]="true"
+          [ngClass]="[
+            'px-3 py-2 w-full',
+            useClass('bg', themeColors.background),
+            useClass('text', themeColors.text),
+            useClass('border', themeColors.border)
+          ]"
+        />
+
+        <span
+          [ngClass]="[
+            'text-xs md:text-sm',
+            useClass('text', themeColors.text_muted)
+          ]"
+          >This will be generated automatically from your first and last
+          name</span
+        >
+      </div>
+      } @else if (currentStep === 2) {
+      <!-- Email -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="email"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Address Email
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [ngClass]="[
+            'px-3 py-2 w-full',
+            useClass('bg', themeColors.background),
+            useClass('text', themeColors.text),
+            useClass('border', themeColors.border)
+          ]"
+          placeholder="Address Email"
+          required
+        />
+
+        @if(email?.touched && email?.dirty) { @if(email?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Address Email Required</span
+        >
+        } @if(email?.getError('email')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Address Email invalid</span
+        >
+        } }
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="password"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Password
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <div class="relative">
+          <input
+            id="password"
+            [type]="show_passwords.password ? 'text' : 'password'"
+            formControlName="password"
+            [ngClass]="[
+              'px-3 py-2 w-full',
+              useClass('bg', themeColors.background),
+              useClass('text', themeColors.text),
+              useClass('border', themeColors.border)
+            ]"
+            placeholder="********"
+            required
+          />
+
+          <div class="absolute right-3 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              (click)="togglePasswords('password')"
+              [ngClass]="[
+                'text-xs md:text-lg p-1 md:p-2 cursor-pointer rounded-lg transition',
+                useClass('text', themeColors.text_muted),
+                useClass('hover:text', themeColors.foreground)
+              ]"
+            >
+              <i
+                class="fa-solid"
+                [ngClass]="show_passwords.password ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        @if(password?.touched && password?.dirty) {
+        @if(password?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Password Required</span
+        >
+        } @if(password?.getError('minlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Password should be at least 8</span
+        >
+        } }
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-3 md:space-y-6">
+        <label
+          htmlFor="confirm_password"
+          [ngClass]="[
+            'block capitalize text-xs md:text-sm font-medium',
+            useClass('text', themeColors.text)
+          ]"
+        >
+          Confirm Password
+          <span class="text-red-400 ms-2">* </span>
+        </label>
+
+        <div class="relative">
+          <input
+            id="confirm_password"
+            [type]="show_passwords.confirm_password ? 'text' : 'password'"
+            formControlName="confirm_password"
+            [ngClass]="[
+              'px-3 py-2 w-full',
+              useClass('bg', themeColors.background),
+              useClass('text', themeColors.text),
+              useClass('border', themeColors.border)
+            ]"
+            placeholder="********"
+            required
+          />
+
+          <div class="absolute right-3 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              (click)="togglePasswords('confirm_password')"
+              [ngClass]="[
+                'text-xs md:text-lg p-1 md:p-2 cursor-pointer rounded-lg transition',
+                useClass('text', themeColors.text_muted),
+                useClass('hover:text', themeColors.foreground)
+              ]"
+            >
+              <i
+                class="fa-solid"
+                [ngClass]="
+                  show_passwords.confirm_password ? 'fa-eye-slash' : 'fa-eye'
+                "
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        @if(confirm_password?.touched && confirm_password?.dirty) {
+        @if(confirm_password?.getError('required')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Confirm Password Required</span
+        >
+        } @if(confirm_password?.getError('minlength')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Confirm Password should be at least 8</span
+        >
+        } @if(confirm_password?.getError('passwordNotMatch')) {
+        <span class="capitalize text-red-500 text-xs md:text-sm"
+          >Password does match</span
+        >
+        } }
+      </div>
+      }
+    </div>
+
+    <div class="flex items-center justify-between">
+      <button
+        (click)="handleSteps('previous')"
+        [ngClass]="[
+          useClass('bg', themeColors.foreground),
+          useClass('hover:bg', themeColors.foreground_hover),
+          currentStep === 1 ? 'invisible' : ''
+        ]"
+        class="flex items-center space-x-3 cursor-pointer px-4 py-1 md:py-2 rounded-lg transition"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>Previous</span>
+      </button>
+
+      <button
+        (click)="handleSteps('next')"
+        [ngClass]="[
+          useClass('bg', themeColors.foreground),
+          useClass('hover:bg', themeColors.foreground_hover)
+        ]"
+        class="flex items-center space-x-3 cursor-pointer px-4 py-1 md:py-2 rounded-lg disabled:pointer-events-none disabled:opacity-50 transition"
+        [disabled]="!validateStep()"
+      >
+        @if(loading) {
+        <div
+          [ngClass]="[
+            'animate-spin rounded-full h-4 w-4 border-t-2 border-b-2',
+            useClass('border', themeColors.spinner)
+          ]"
+        ></div>
+        }
+        <span>{{ currentStep !== steps ? "Next" : "Register" }}</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="overflow-hidden text-center">
+      <h1
+        [ngClass]="[
+          'text-sm md:text-lg font-medium space-x-2',
+          useClass('text', themeColors.text_muted)
+        ]"
+      >
+        <span>Already have an account ? </span>
+        <a
+          [routerLink]="['/' + root_auth + '/' + login_path]"
+          [ngClass]="[
+            useClass('text', themeColors.foreground),
+            useClass('hover:text', themeColors.foreground_hover)
+          ]"
+        >
+          Sign In
+        </a>
+      </h1>
+    </div>
+  </form>
+</div>

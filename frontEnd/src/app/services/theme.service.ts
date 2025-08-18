@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TThemeMode } from '../types/TThemeMode';
 import { IThemeColors } from '../interfaces/IThemeColors';
+import { TClass } from '../types/TClass';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class ThemeService {
 
   getCurrentThemeColors(mode: TThemeMode): IThemeColors {
     return { ...this.themeColors[mode] }
+  }
+
+  useClasses(type: TClass, classes: string): string {
+    return `${type}-[${classes}]`;
   }
 }
