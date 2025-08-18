@@ -37,7 +37,9 @@ class AuthController extends Controller
             $user = User::where("email", $req->email)->first();
 
             if (!Hash::check($req->password, $user->password)) {
-                return response('Wrong password', 404);
+                return response([
+                    'password' => 'Wrong password'
+                ], 404);
             }
 
             $token = $user
