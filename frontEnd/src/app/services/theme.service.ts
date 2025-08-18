@@ -11,26 +11,32 @@ export class ThemeService {
 
   private themeColors: Record<TThemeMode, IThemeColors> = {
     light: {
-      background: 'bg-[#E5E7EB]',
-      primary_text: 'text-orange-700',
-      primary_border: 'border-orange-700',
-      primary_bg: 'bg-orange-700',
-      normalText: 'text-gray-900',
-      mutedText: 'text-gray-500',
-      bgCard: 'bg-[#333333]'
+      background: '#FFFFFF',
+      foreground: '#0E7490',
+      foreground_hover: '#0b8aadff',
+      text: '#333',
+      text_muted: '#828893',
+      border: '#e6e9ec',
+      card: '#eee',
+      spinner: '#0EA5E9'
     },
     dark: {
-      background: 'bg-[#333333]',
-      primary_text: 'text-orange-400',
-      primary_border: 'border-orange-400',
-      primary_bg: 'bg-orange-400',
-      normalText: 'text-gray-100',
-      mutedText: 'text-gray-400',
-      bgCard: 'bg-[#E5E7EB]'
+      background: '#090E1A',
+      foreground: '#15A8D1',
+      foreground_hover: '#00c8ffff',
+      text: '#fff',
+      text_muted: '#94B3D1',
+      border: '#12244fff',
+      card: '#0C1322',
+      spinner: '#3B82F6'
     },
   };
 
   getThemeColor(mode: TThemeMode, role: keyof IThemeColors): string {
     return this.themeColors[mode][role];
   };
+
+  getCurrentThemeColors(mode: TThemeMode): IThemeColors {
+    return { ...this.themeColors[mode] }
+  }
 }

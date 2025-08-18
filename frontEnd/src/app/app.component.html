@@ -1,13 +1,8 @@
 <div
-  [ngClass]="[
-    'flex justify-between',
-    themeColors.background,
-    themeColors.normalText
+  [class]="[
+    'bg-[' + themeColors.background + ']',
+    'text-[' + themeColors.text + ']'
   ]"
 >
-  <h1>App</h1>
-
-  <button [ngClass]="['p-3 cursor-pointer', themeColors.primary_bg]" (click)="toggleMode()">
-    Toggle
-  </button>
+  <router-outlet></router-outlet>
 </div>

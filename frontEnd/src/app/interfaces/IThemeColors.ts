@@ -1,9 +1,10 @@
 export interface IThemeColors {
-    background: string;
-    primary_text: string;
-    primary_border: string;
-    primary_bg: string;
-    normalText: string;
-    mutedText: string;
-    bgCard: string
+  background: string,
+  foreground: string,
+  foreground_hover: string,
+  text: string,
+  text_muted: string,
+  border: string,
+  card: string,
+  spinner: string
 }
