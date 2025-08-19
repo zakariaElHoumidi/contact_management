@@ -88,8 +88,8 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.user.reset();
         this._router.navigate([`/${routes_paths.user.root}/${routes_paths.user.children.home}`]);
-        window.localStorage.setItem('token', res.token)
-        window.localStorage.setItem('user', JSON.stringify(res.user))
+        this._authService.setTokenInLocalS(res.token);
+        this._authService.setUserInLocalS(res.user);
       },
       error: (err) => {
         console.error(err);

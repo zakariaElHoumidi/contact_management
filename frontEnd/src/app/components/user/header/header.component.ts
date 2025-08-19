@@ -3,6 +3,7 @@ import { ThemeService } from '../../../services/theme.service';
 import { IThemeColors } from '../../../interfaces/IThemeColors';
 import { TClass } from '../../../types/TClass';
 import { NgClass } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { NgClass } from '@angular/common';
 })
 export class HeaderComponent {
   private readonly _themeService: ThemeService = inject(ThemeService);
+  private readonly _authService: AuthService = inject(AuthService);
   @Output() buttonClick = new EventEmitter<string>();
 
   onButtonClick() {
@@ -24,5 +26,16 @@ export class HeaderComponent {
 
   useClass(type: TClass, classes: string): string {
     return this._themeService.useClasses(type, classes);
+  }
+
+  async testIsAuth() {
+    this._authService.isAuth().subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 }
