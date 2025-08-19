@@ -1,5 +1,7 @@
 <div class="flex">
   <app-side-bar [sidebarEvent]="sidebarEvent"></app-side-bar>
   <app-header (buttonClick)="handleSidebarEvent($event)"></app-header>
-  <router-outlet></router-outlet>
+  <div class="ps-11 py-22">
+    <router-outlet></router-outlet>
+  </div>
 </div>
