@@ -1,0 +1,15 @@
+<div class="w-full flex items-center h-18 border-b p-2 ps-8">
+  <div class="flex items-center space-x-3 text-md font-bold">
+    <button
+      (click)="onButtonClick()"
+      [ngClass]="[
+        'cursor-pointer p-1 px-2 rounded-lg',
+        useClass('text', themeColors.text),
+        useClass('hover:bg', themeColors.foreground)
+      ]"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <h1>ContactPro</h1>
+  </div>
+</div>

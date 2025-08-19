@@ -1,1 +1,5 @@
-<p>user-layout works!</p>
+<div class="flex">
+  <app-side-bar [sidebarEvent]="sidebarEvent"></app-side-bar>
+  <app-header (buttonClick)="handleSidebarEvent($event)"></app-header>
+  <router-outlet></router-outlet>
+</div>

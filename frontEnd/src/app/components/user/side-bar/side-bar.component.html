@@ -1,0 +1,137 @@
+<div [ngClass]="[isOpen ? 'w-64' : 'w-16']" class="min-h-screen border-r">
+  <div class="h-18 flex items-center border-b p-2 space-x-4">
+    <div
+      [ngClass]="[
+        'px-3 py-2 rounded-lg',
+        'bg-[' + themeColors.foreground + ']',
+        'text-[' + themeColors.text + ']'
+      ]"
+    >
+      <i class="fa-solid fa-user-group"></i>
+    </div>
+
+    @if (isOpen) {
+    <div class="overflow-hidden">
+      <h1 [ngClass]="['text-md font-bold', useClass('text', themeColors.text)]">
+        ContactPro
+      </h1>
+      <p [ngClass]="['text-xs', useClass('text', themeColors.text_muted)]">
+        Manage your network
+      </p>
+    </div>
+    }
+  </div>
+
+  <div class="space-y-3">
+    <div class="p-2 space-y-4">
+      @if (isOpen) {
+      <h1 [ngClass]="['text-sm', useClass('text', themeColors.text)]">
+        Navigations
+      </h1>
+      }
+
+      <ul class="space-y-4">
+        @for (navigation of navigations; track $index) {
+        <li
+          [ngClass]="[
+            'text-sm',
+            isOpen
+              ? 'p-1 space-x-2 relative'
+              : 'p-3 flex justify-center items-center',
+            $index === 0 ? useClass('bg', themeColors.foreground) : '',
+            $index === 0 ? useClass('hover:bg', themeColors.background) : '',
+            'cursor-pointer rounded-lg',
+            useClass('hover:bg', themeColors.foreground)
+          ]"
+        >
+          <i [class]="navigation['icon']"></i>
+          @if (isOpen) {
+          <a [href]="navigation['path']">{{ navigation["label"] }}</a>
+
+          <div
+            [ngClass]="[
+              'w-12 flex justify-center rounded-full absolute top-1/2 -translate-y-1/2 right-4',
+              useClass('bg', themeColors.text_muted),
+              useClass('text', themeColors.text)
+            ]"
+          >
+            {{ navigation["length"] }}
+          </div>
+          }
+        </li>
+        }
+      </ul>
+    </div>
+
+    <div class="p-2 space-y-4">
+      @if (isOpen) {
+      <h1 [ngClass]="['text-sm', useClass('text', themeColors.text)]">Tools</h1>
+      }
+
+      <ul class="space-y-4">
+        @for (tool of tools; track $index) {
+        <li
+          [ngClass]="[
+            'text-sm',
+            isOpen
+              ? 'p-1 space-x-2 relative'
+              : 'p-3 flex justify-center items-center',
+            'cursor-pointer rounded-lg',
+            useClass('hover:bg', themeColors.foreground)
+          ]"
+        >
+          <i [class]="tool['icon']"></i>
+          @if(isOpen) {
+          <a [href]="tool['path']">{{ tool["label"] }}</a>
+          }
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div
+    [ngClass]="[
+      isOpen ? 'w-64' : 'w-16',
+      'fixed border-t bottom-0 left-0 flex items-center p-2 space-x-4'
+    ]"
+  >
+    <ul class="w-full space-y-3">
+      <li>
+        <button
+          [ngClass]="[
+            isOpen
+              ? 'p-1 space-x-2 relative'
+              : 'p-2 flex justify-center items-center',
+            'w-full rounded-lg text-left cursor-pointer capitalize text-sm',
+            useClass('hover:text', themeColors.text),
+            useClass('hover:bg', themeColors.foreground)
+          ]"
+        >
+          <i class="fa-solid fa-moon"></i>
+          @if (isOpen) {
+          <span>Dark Mode</span>
+          }
+        </button>
+      </li>
+
+      <li>
+        <button
+          [ngClass]="[
+            isOpen
+              ? 'p-1 space-x-2 relative'
+              : 'p-2 flex justify-center items-center',
+            'w-full rounded-lg text-left cursor-pointer capitalize text-sm',
+            useClass('hover:text', themeColors.text),
+            useClass('hover:bg', themeColors.foreground)
+          ]"
+        >
+          <i class="fa-solid fa-globe"></i>
+          @if (isOpen) {
+          <span>English</span>
+          }
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
