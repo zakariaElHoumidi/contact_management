@@ -96,12 +96,12 @@ class AuthController extends Controller
     public function isAuth()
     {
         $isAuth = auth('sanctum')->check();
-        $user = auth('sanctum')->user();
 
-        return response($isAuth ? "Welcome $user->name" : 'User Not In', 200);
+        return response($isAuth, 200);
     }
 
-    public function logout(Request $req) {
+    public function logout(Request $req)
+    {
         $isAuth = auth('sanctum')->check();
         $user = $req->user();
 
