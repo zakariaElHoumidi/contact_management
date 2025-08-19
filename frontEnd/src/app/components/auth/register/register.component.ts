@@ -178,7 +178,6 @@ export class RegisterComponent implements OnInit {
     this._authService.register(this.user.value).subscribe({
       next: (res) => {
         this.loading = false;
-        console.log('✅ Registered:', res);
         this._router.navigate([`/${routes_paths.auth.root}/${routes_paths.auth.children.login}`]);
       },
       error: (err) => {

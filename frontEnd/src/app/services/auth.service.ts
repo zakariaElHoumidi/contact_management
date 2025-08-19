@@ -23,8 +23,6 @@ export class AuthService {
   isAuthenticated = (): boolean => {
     const token = window.localStorage.getItem('token');
 
-    console.log(Boolean(token));
-
     return Boolean(token)
   }
 }

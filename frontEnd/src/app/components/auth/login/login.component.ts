@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit {
     this._authService.login(this.user.value).subscribe({
       next: (res) => {
         this.loading = false;
-        console.log('✅ Login:', res);
         this.user.reset();
         this._router.navigate([`/${routes_paths.user.root}/${routes_paths.user.children.home}`]);
         window.localStorage.setItem('token', res.token)
